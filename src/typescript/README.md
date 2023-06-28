@@ -1,5 +1,5 @@
 
-# typescript
+# TypeScript
 # ¿Qué es TypeScript?
  
 # Configuración básica de un proyecto TypeScript
