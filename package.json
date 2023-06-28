@@ -1,0 +1,18 @@
+{
+  "name": "test_ts",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.ts",
+  "scripts": {
+    "start": "tsc  && node dist/app.js",
+    "test": "test"
+  },
+  "author": "michal huahuasoncco",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "mongodb": "^5.6.0"
+  }
+}
