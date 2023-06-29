@@ -1,9 +1,7 @@
-
-
 // ------------
 // beneficios
 // ------------
-const myArray = ['a','b','c']
+const myArray = ['a', 'b', 'c']
 // const myStr = myArray.find((n) => n === 5)
 // const res = myStr.length
 // Cannot read property 'length' of undefined
@@ -24,18 +22,18 @@ calcularEdad(fechaNacimiento){
 calcularEdad('2000/01/04')
 
 */
-function calcularEdad(fechaNacimiento: Date){
+function calcularEdad(fechaNacimiento: Date) {
   return new Date().getFullYear() - fechaNacimiento.getFullYear()
 }
-// calcularEdad('2000/01/22')
 
+// calcularEdad('2000/01/22')
 
 
 // ------------
 // Types
 // ------------
 
-const a: string  | number | boolean | null | undefined  = 'hola'
+const a: string | number | boolean | null | undefined = 'hola'
 
 // ------------
 // Variables
@@ -50,16 +48,21 @@ const isAdult: boolean = true
 const aNumber: number = 1
 // declarar implicitamente
 const aString = 'hola'
+let anotherString = 'hola'
 const aBoolean = true
+
+const anArray:ReadonlyArray<number> = [1, 2, 3]
+// anArray.push(4)
 
 // type
 
 
 type Color = "red" | "green" | "blue"
+// const a: Color = 'red'
+// console.log(typeof a) // string
 
-
-type Lapiz ={color: 'yellow', borrador: boolean}
-type Plumon = { grosor: number}
+type Lapiz = { color: 'yellow', borrador: boolean }
+type Plumon = { grosor: number }
 
 type SuperPlumon = Lapiz & Plumon
 
@@ -69,8 +72,21 @@ const superPlumon: SuperPlumon = {
   borrador: false
 }
 
-Promise.allSettled([])
+// ------------
+// Inferencia de tipos
+// ------------
 
+
+function printUserId(userId: number | string) {
+  if (typeof userId === 'string') {
+    return userId.toUpperCase()
+  } else {
+    return userId.toFixed().toUpperCase()
+  }
+}
+
+//Promise.allSettled([])
+type Result = { status: 'success', data: unknown } | { status: 'error', message: string }
 
 
 // ------------
@@ -88,15 +104,17 @@ function buildModal() {
     onClick
   }
 }
+
 //  default parameters
-function buildTag(text: string, Color: Color = "red")  {
+function buildTag(text: string, Color: Color = "red") {
   return {
     text,
     Color
   }
 }
+
 // optional parameters
-const  arr = [1,2,3,4,5,6,7,8,9,10]
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const sorted = arr.sort() // ver params
 
 // ------------
@@ -123,7 +141,80 @@ interface Modal {
 // Classes
 // ------------
 
-class PDF {} // abrir proyecto angular con pdfs
+
+export class PDF {
+  getContent(): unknown[] {
+    return []
+  }
+
+  print() {
+    const content = this.getContent()
+    console.log(content)
+  }
+}
+
+class Contrato extends PDF {
+  ID = 'Contrato'
+  data: string
 
 
+  constructor(data: string) {
+    super();
+    this.data = data;
+  }
 
+  override getContent() {
+    return ['Contrato', this.data]
+  }
+}
+
+class Pagare extends PDF {
+  ID = 'Pagare'
+  data: string
+
+
+  constructor(data: string) {
+    super();
+    this.data = data;
+  }
+
+  override getContent() {
+    return ['Pagare', this.data]
+  }
+}
+
+
+export class AppPresenterService {
+
+  constructor() {
+  }
+
+  createPdfs() {
+
+    const contrato = new Contrato('asdasdasd')
+    const pagare = new Pagare('asdasdasd')
+    return [contrato, pagare]
+  }
+
+  printPDF(pdf: PDF) {
+    pdf.print()
+  }
+}
+
+export class AppComponent  {
+  title = 'test_angular';
+  pdfs: PDF[] = [];
+
+  constructor(private appPresenterService: AppPresenterService) {
+  }
+
+  ngOnInit() {
+    this.pdfs = this.appPresenterService.createPdfs()
+  }
+
+
+  onClick(pdf: PDF) {
+    pdf.print()
+  }
+
+}
