@@ -71,4 +71,6 @@ npx tsc <archivo.ts>
     ```bash
     tsc --init
     ```
- 
+ # Codigo
+- [Ejemplos](https://github.com/MichaelPaulHP/ts-mongodb/blob/main/src/typescript/info.ts)  
+     
