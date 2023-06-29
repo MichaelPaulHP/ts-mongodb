@@ -5,7 +5,7 @@
 - Es un sistema de gestión de bases de datos (SGBD).
 - MongoDB es una base de datos NoSQL orientado a documentos, hay [mas tipos](https://www.mongodb.com/databases/types).
 - Bases de datos de documentos, es decir que los datos se guardan en documentos similares a JSON.
-- Los documentos son la unidad basica de almacenamiento.
+- Los documentos son la unidad básica de almacenamiento.
 - Los documentos son estructuras de datos similares a JSON, que pueden tener cualquier forma, es decir que no tienen un esquema fijo como las tablas de las bases de datos relacionales.
 - Los documentos se guardan en formato BSON, que es un formato binario similar a JSON.
 - Base de datos distribuida, esto quiere decir que se puede ejecutar en un cluster de servidores, y los datos se distribuyen en los diferentes servidores del cluster.
@@ -116,6 +116,7 @@ mas info [aqui](https://www.mongodb.com/docs/manual/reference/connection-string/
 ### Ejemplos
 - `mongodb://localhost:27017` a nuestro servidor local sin autenticacion
 - `mongodb://myUserAdmin:hola@localhost:27017/` a nuestro servidor local con autenticacion
+- `mongodb://myUserAdmin@localhost:27017/` para ingresar contraseña en el cliente
 
 # Autenticacion
 Por defecto mongodb tiene desactivada la autentificación, para activarla tenemos que editar el archivo de configuracion de mongoDB,
@@ -173,8 +174,23 @@ Si intentamos hacer algo sin autenticacion nos va a dar un error
 ```
 MongoServerError: command aggregate requires authentication
 ```
- 
+## Crear usuarios con roles 
+Mongodb proporciona varios roles predefinidos, [mas info](https://docs.mongodb.com/manual/reference/built-in-roles/)
 
+### Crear usuario con rol de lectura y escritura
+```js
+use admin
+db.createUser(
+    {
+      user: "analystUser",
+      pwd: passwordPrompt(),
+      roles: [
+        { role: "read", db: "sample_analytics" }, // readWrite
+         
+      ]
+    }
+)
+```
 
 # Operaciones CRUD
 Vamos implementar una aplicacion de [recordatorios](https://www.behance.net/gallery/170936219/Reminder-App).

@@ -35,7 +35,7 @@ function calcularEdad(fechaNacimiento: Date){
 // Types
 // ------------
 
-const a: string  | number | boolean  = 'hola'
+const a: string  | number | boolean | null | undefined  = 'hola'
 
 // ------------
 // Variables
